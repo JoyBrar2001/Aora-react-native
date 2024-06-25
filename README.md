@@ -28,6 +28,8 @@ Aora is an image and video sharing platform built with React Native and the Expo
 
 👉 **Tab Navigation**: Navigate between sections like Home, Search, Bookmarks and Profile with ease using tab navigation.
 
+👉 **Bookmarking Feature**: Easily bookmark posts to view them later on the Bookmarks page.
+
 ![Home Page](screenshots/Search%20and%20Bookmark.png)
 
 👉 **Post Creation Screen for Uploading Media**: Upload video and image posts directly from the app with integrated media selection.
@@ -35,6 +37,8 @@ Aora is an image and video sharing platform built with React Native and the Expo
 ![Home Page](screenshots/Upload.png)
 
 👉 **Profile Screen with Detailed Insights**: View account details and activity, including uploaded videos and follower count, for a personalized experience.
+
+👉 **Edit Profile Screen**: Users can upload a new profile picture and update their profile details.
 
 ![Home Page](screenshots/Profile%20and%20Settings.png)
 
@@ -44,7 +48,6 @@ Aora is an image and video sharing platform built with React Native and the Expo
 
 …and many more, including code architecture and reusability.
 
-here add a line for the bookmarking feature, and one like for the edit profile screen, when the user can upload their new profile picture as well
 
 ## ⚙️ Getting Started
 
