@@ -17,6 +17,9 @@
       "package": "com.jb.aora"
     },
     "android": {
+      "permissions": [
+        "INTERNET"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
