@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, FlatList, TouchableOpacity, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { router } from 'expo-router';
+import { Link, router } from 'expo-router';
+import { Feather } from '@expo/vector-icons';
 
 import EmptyState from '../../components/EmptyState';
 import VideoCard from '../../components/VideoCard';
@@ -35,16 +36,28 @@ const Profile = () => {
         )}
         ListHeaderComponent={() => (
           <View className="w-full justify-center items-center mt-6 mb-12 px-4">
-            <TouchableOpacity
-              className="w-full items-end mb-10"
-              onPress={logout}
-            >
-              <Image
-                source={icons.logout}
-                resizeMode="contain"
-                className="w-6 h-6"
-              />
-            </TouchableOpacity>
+            <View className="w-full flex flex-row justify-between items-center">
+              <Link
+                href={"/(settings)"}
+                className="text-gray-100"
+              >
+                <Feather
+                  name="settings"
+                  size={26}
+                  color={"rgb(205,205,224)"}
+                />
+              </Link>
+              <TouchableOpacity
+                className=""
+                onPress={logout}
+              >
+                <Image
+                  source={icons.logout}
+                  resizeMode="contain"
+                  className="w-6 h-6"
+                />
+              </TouchableOpacity>
+            </View>
             <View className="w-16 h-16 border border-secondary rounded-lg justify-center items-center">
               <Image
                 source={{ uri: user?.avatar }}
@@ -65,7 +78,7 @@ const Profile = () => {
                 subtitle="Posts"
                 containerStyles="mr-10"
                 titleStyles="text-xl"
-                />
+              />
               <InfoBox
                 title="1.2k"
                 subtitle="Views"

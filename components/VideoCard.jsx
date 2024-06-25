@@ -1,10 +1,36 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { icons } from '../constants'
 import { ResizeMode, Video } from 'expo-av';
+import { Ionicons } from '@expo/vector-icons';
+import { addBookmark, getUserBookmarks, removeBookmark } from '../lib/appwrite';
+import { useGlobalContext } from '../context/GlobalProvider';
+import useAppwrite from '../lib/useAppwrite';
 
 const VideoCard = ({ video }) => {
+  const { user } = useGlobalContext();
   const [play, setPlay] = useState(false);
+  const { data: bookmarks } = useAppwrite(() => getUserBookmarks(user.$id));
+  const [isBookmarked, setIsBookmarked] = useState(false);
+
+  useEffect(() => {
+    if (bookmarks) {
+      setIsBookmarked(bookmarks.map(item => item.$id).includes(video.$id));
+    }
+  }, [bookmarks, video.$id]);
+
+  const handleBookmark = async () => {
+    try {
+      setIsBookmarked(!isBookmarked);
+      if(isBookmarked){
+        await removeBookmark(user.$id, video.$id);
+      } else {
+        await addBookmark(user.$id, video.$id);
+      }
+    } catch (error) {
+      throw new Error(error);
+    } 
+  }
 
   return (
     <View className="flex-col items-center px-4 mb-14">
@@ -22,27 +48,32 @@ const VideoCard = ({ video }) => {
             <Text className="text-white font-psemibold text-sm" numberOfLines={1}>
               {video?.title}
             </Text>
+            <Text
+              className="text-xs text-gray-100 font-pregular"
+              numberOfLines={1}
+            >
+              {video?.creator?.username}
+            </Text>
           </View>
         </View>
 
-        <View className="pt-2">
-          <Image
-            source={icons.menu}
-            className="w-5 h-5"
-            resizeMode='contain'
-          />
-        </View>
+        <TouchableOpacity onPress={handleBookmark} className="pt-2">
+          {isBookmarked ? (
+            <Ionicons name="bookmark" size={24} color={"rgb(205,205,224)"} />
+          ) : (
+            <Ionicons name="bookmark-outline" size={24} color={"rgb(205,205,224)"} />
+          )}
+        </TouchableOpacity>
       </View>
 
       {play ? (
         <Video
           source={{ uri: video.video }}
-          className="w-full h-60 rounded-xl"
-          resizeMode={ResizeMode.CONTAIN}
+          className="w-full h-60 rounded-xl mt-2"
+          resizeMode={ResizeMode.COVER}
           useNativeControls
           shouldPlay
           onPlaybackStatusUpdate={(status) => {
-            console.log(status);
             if (status.didJustFinish) {
               setPlay(false);
             }

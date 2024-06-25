@@ -22,8 +22,6 @@ const Create = () => {
     prompt: '',
   });
 
-  console.log(form);
-
   const openPicker = async (selectType) => {
     const result = await DocumentPicker.getDocumentAsync({
       type: selectType === "image"
