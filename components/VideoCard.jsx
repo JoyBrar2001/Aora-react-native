@@ -14,7 +14,7 @@ const VideoCard = ({ video }) => {
             <Image
               source={{ uri: video?.creator?.avatar }}
               className="w-full h-full rounded-lg"
-              resizeMode="cover"
+              resizeMode="contain"
             />
           </View>
 
