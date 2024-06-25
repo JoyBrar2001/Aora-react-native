@@ -13,13 +13,14 @@ import useAppwrite from '../../lib/useAppwrite';
 import { images } from '../../constants';
 
 const Home = () => {
-  const { data: posts } = useAppwrite(getAllPosts);
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
 
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = async () => {
     setRefreshing(true);
+    await refetch();
     setRefreshing(false);
   }
 
